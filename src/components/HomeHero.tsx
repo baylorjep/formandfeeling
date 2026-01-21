@@ -25,7 +25,7 @@ export default function HomeHero() {
         </h1>
         
         {/* Tagline */}
-        <p className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-ink/80 mb-3 sm:mb-4 animate-slide-up">
+        <p className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-ink/80 mb-3 sm:mb-4 animate-slide-up">
           {BRAND.tagline}
         </p>
         

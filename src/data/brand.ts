@@ -31,11 +31,11 @@ export const BRAND = {
 // ============================================================================
 
 export const BRAND_STATEMENT = {
-  full: `Form & Feeling is an interior design consulting studio centered on helping clients uncover the most elevated version of their space—and themselves within it. Through thoughtful guidance, creative direction, and intentional design frameworks, we balance clean structure with personal expression. Our approach empowers clients to make confident decisions, shaping homes that feel authentic, refined, and deeply personal.`,
+  full: `Form & Feeling is an interior design consulting studio centered on helping clients uncover the most elevated version of their space, and themselves within it. Through thoughtful guidance, creative direction, and intentional design frameworks, we balance clean structure with personal expression. Our approach empowers clients to make confident decisions, shaping homes that feel authentic, refined, and deeply personal.`,
   
-  short: `Form & Feeling offers interior design consulting grounded in clarity, creativity, and connection—guiding clients toward spaces that feel personal, intentional, and elevated.`,
+  short: `Form & Feeling offers interior design consulting grounded in clarity, creativity, and connection, guiding clients toward spaces that feel personal, intentional, and elevated.`,
   
-  bio: `Form & Feeling is an interior design consulting studio founded by Nicole Harker. Through thoughtful guidance and intentional design frameworks, we help clients uncover the most elevated version of their space—balancing clean structure with personal expression to shape homes that feel authentic, refined, and deeply personal.`,
+  bio: `Form & Feeling is an interior design consulting studio founded by Nicole Harker. Through thoughtful guidance and intentional design frameworks, we help clients uncover the most elevated version of their space, balancing clean structure with personal expression to shape homes that feel authentic, refined, and deeply personal.`,
   
   philosophy: `Good design should feel like clarity, not complexity.`,
 } as const;
@@ -96,19 +96,19 @@ nicole_harker@yahoo.com`;
 // CONTENT BLOCKS
 // ============================================================================
 
-export const HOMEPAGE_INTRO = `Form & Feeling offers interior design consulting grounded in clarity, creativity, and connection—guiding clients toward spaces that feel personal, intentional, and elevated.`;
+export const HOMEPAGE_INTRO = `Form & Feeling offers interior design consulting grounded in clarity, creativity, and connection, guiding clients toward spaces that feel personal, intentional, and elevated.`;
 
-export const SERVICES_INTRO = `Form & Feeling offers design consulting—not full-service execution. We provide the expertise, direction, and frameworks you need to make empowered decisions, whether you're working with contractors, shopping for furnishings, or simply trying to see your space with fresh eyes.`;
+export const SERVICES_INTRO = `Form & Feeling offers design consulting, not full-service execution. We provide the expertise, direction, and frameworks you need to make empowered decisions, whether you're working with contractors, shopping for furnishings, or simply trying to see your space with fresh eyes.`;
 
 export const ABOUT_FORM_FEELING = [
   `Form & Feeling was founded on a simple belief: you shouldn't need to hand over your home to get great design. Many people know what they like but struggle to articulate it, organize it, or trust their instincts. That's where we come in.`,
   
-  `We work at the intersection of structure and personal expression—helping you see your space clearly, make decisions confidently, and move forward without second-guessing. Our role is to guide, not to take over.`,
+  `We work at the intersection of structure and personal expression, helping you see your space clearly, make decisions confidently, and move forward without second-guessing. Our role is to guide, not to take over.`,
   
   `The name says it all: Form is the structure, the layout, the bones of a space. Feeling is the warmth, the personality, the sense that a room is unmistakably yours. Good design holds both.`,
 ];
 
-export const ABOUT_NICOLE = `Nicole Harker is the founder and principal consultant at Form & Feeling. With a background in interior design and a deep appreciation for how spaces shape our daily lives, Nicole helps clients cut through the noise and find their design footing. Her approach is collaborative, calm, and refreshingly practical—focused on empowering you to make decisions you'll love living with.`;
+export const ABOUT_NICOLE = `Nicole Harker is the founder and principal consultant at Form & Feeling. With a background in interior design and a deep appreciation for how spaces shape our daily lives, Nicole helps clients cut through the noise and find their design footing. Her approach is collaborative, calm, and refreshingly practical, focused on empowering you to make decisions you'll love living with.`;
 
 // ============================================================================
 // SERVICES CONTENT
@@ -139,7 +139,7 @@ export const PROCESS_STEPS = [
   },
   {
     name: 'Direction',
-    description: 'We develop a clear design direction—a cohesive framework that guides every decision.',
+    description: 'We develop a clear design direction, a cohesive framework that guides every decision.',
   },
   {
     name: 'Refinement',
@@ -177,7 +177,7 @@ export const SERVICE_PACKAGES = [
  * AVOID_LANGUAGE
  * 
  * These terms imply full-service execution, procurement, or project management.
- * Form & Feeling is a consulting studio—we guide and advise, we don't execute.
+ * Form & Feeling is a consulting studio. We guide and advise, we don't execute.
  * Use this list to audit copy and ensure positioning remains clear.
  */
 export const AVOID_LANGUAGE = [
@@ -203,7 +203,7 @@ export const AVOID_LANGUAGE = [
 export const SEO = {
   home: {
     title: 'Form & Feeling | Interior Design Consulting by Nicole Harker',
-    description: 'Personal spaces, thoughtfully refined. Design consulting that empowers confident decisions—strategic guidance, curated direction, and clarity for your home.',
+    description: 'Personal spaces, thoughtfully refined. Design consulting that empowers confident decisions. Strategic guidance, curated direction, and clarity for your home.',
   },
   services: {
     title: 'Services | Form & Feeling',
