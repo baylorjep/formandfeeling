@@ -4,7 +4,7 @@ import { BRAND } from '@/data/brand';
 
 export default function HomeHero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <div 
@@ -18,7 +18,7 @@ export default function HomeHero() {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-24 sm:py-32">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-12 sm:py-32">
         {/* Brand Name */}
         <h1 className="brand-name text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-brand text-ink mb-4 sm:mb-6 animate-fade-in">
           {BRAND.name}

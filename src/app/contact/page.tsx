@@ -13,8 +13,6 @@ export default function Contact() {
     timeline: '',
     message: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -23,23 +21,22 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate form submission - replace with actual integration
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Build email body from form data
+    const subject = `Form & Feeling Inquiry from ${formData.name}`;
+    const body = `Name: ${formData.name}
+Email: ${formData.email}
+Project Type: ${formData.projectType || 'Not specified'}
+Timeline: ${formData.timeline || 'Not specified'}
+
+Message:
+${formData.message}`;
     
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    setFormData({
-      name: '',
-      email: '',
-      projectType: '',
-      timeline: '',
-      message: '',
-    });
+    // Open default email client with pre-filled content
+    const mailtoLink = `mailto:nicole_harker@yahoo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -78,24 +75,7 @@ export default function Contact() {
                 Tell Us About Your Project
               </h2>
               
-              {isSubmitted ? (
-                <div className="bg-ivory border border-clay/30 p-8">
-                  <h3 className="font-serif text-xl text-ink mb-3">
-                    Thank You
-                  </h3>
-                  <p className="font-sans text-ink/80 mb-4">
-                    Your message has been received. We&apos;ll review your project details and 
-                    respond within 2 business days.
-                  </p>
-                  <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="text-clay hover:text-ink font-sans text-sm font-medium transition-colors duration-300"
-                  >
-                    Send another message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block font-sans text-sm font-medium text-ink mb-2">
@@ -189,13 +169,11 @@ export default function Contact() {
                   
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-primary"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    Send Message
                   </button>
                 </form>
-              )}
             </div>
 
             {/* Contact Information */}
