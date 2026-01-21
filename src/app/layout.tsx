@@ -31,7 +31,8 @@ export const metadata: Metadata = {
   creator: BRAND.name,
   publisher: BRAND.name,
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.png',
+    apple: '/apple-icon.png',
   },
   openGraph: {
     title: SEO.home.title,
