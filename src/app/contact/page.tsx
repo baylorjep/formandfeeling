@@ -1,17 +1,16 @@
 'use client';
 
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { ArrowLeft, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import { BRAND } from '@/data/brand';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     projectType: '',
+    timeline: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,71 +27,69 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission - replace with actual Supabase integration
+    // Simulate form submission - replace with actual integration
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setIsSubmitting(false);
     setIsSubmitted(true);
     
-    // Reset form
     setFormData({
       name: '',
       email: '',
-      phone: '',
       projectType: '',
+      timeline: '',
       message: '',
     });
   };
 
   return (
-    <main className="min-h-screen">
-      <Navigation />
-      
+    <main className="min-h-screen pt-20">
       {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-8">
+      <section className="pt-8 sm:pt-12 pb-10 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-ivory">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-6 sm:mb-8">
             <Link
               href="/"
-              className="inline-flex items-center text-soft-gray hover:text-charcoal transition-colors duration-200 font-sans text-sm font-light"
+              className="inline-flex items-center text-greige hover:text-ink transition-colors duration-300 font-sans text-sm"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
+              Home
             </Link>
           </div>
           
-          <h1 className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-6">
-            Contact
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-ink mb-4 sm:mb-6">
+            Begin the Conversation
           </h1>
           
-          <p className="font-sans text-lg text-soft-gray font-light max-w-3xl">
-                         Ready to transform your space? I&apos;d love to hear about your project and discuss how we can 
-             create something beautiful together.
+          <p className="prose-editorial text-base sm:text-lg text-ink/90 leading-relaxed max-w-2xl">
+            Ready to bring clarity and intention to your space? Tell us about your project 
+            and we&apos;ll be in touch to discuss how {BRAND.name} can help.
           </p>
         </div>
       </section>
 
       {/* Contact Content */}
-      <section className="pb-24 px-4 sm:px-6 lg:px-8 bg-warm-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16">
+      <section className="pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 bg-linen">
+        <div className="max-w-5xl mx-auto pt-6 sm:pt-8">
+          <div className="grid lg:grid-cols-5 gap-10 lg:gap-16">
             {/* Contact Form */}
-            <div>
-              <h2 className="font-serif text-2xl font-medium text-charcoal mb-8">
-                Get in Touch
+            <div className="lg:col-span-3">
+              <h2 className="font-serif text-xl sm:text-2xl font-light text-ink mb-6 sm:mb-8">
+                Tell Us About Your Project
               </h2>
               
               {isSubmitted ? (
-                <div className="bg-green-50 border border-green-200 p-6 rounded-lg">
-                  <h3 className="font-serif text-xl font-medium text-green-800 mb-2">
-                    Thank You!
+                <div className="bg-ivory border border-clay/30 p-8">
+                  <h3 className="font-serif text-xl text-ink mb-3">
+                    Thank You
                   </h3>
-                  <p className="font-sans text-green-700">
-                    Your message has been sent successfully. I&apos;ll get back to you within 24 hours.
+                  <p className="font-sans text-ink/80 mb-4">
+                    Your message has been received. We&apos;ll review your project details and 
+                    respond within 2 business days.
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="mt-4 text-green-600 hover:text-green-800 font-sans text-sm font-medium"
+                    className="text-clay hover:text-ink font-sans text-sm font-medium transition-colors duration-300"
                   >
                     Send another message
                   </button>
@@ -101,8 +98,8 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block font-sans text-sm font-medium text-charcoal mb-2">
-                        Name *
+                      <label htmlFor="name" className="block font-sans text-sm font-medium text-ink mb-2">
+                        Name
                       </label>
                       <input
                         type="text"
@@ -111,14 +108,14 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 focus:border-charcoal focus:outline-none font-sans text-sm transition-colors duration-200"
-                        placeholder="Your full name"
+                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        placeholder="Your name"
                       />
                     </div>
                     
                     <div>
-                      <label htmlFor="email" className="block font-sans text-sm font-medium text-charcoal mb-2">
-                        Email *
+                      <label htmlFor="email" className="block font-sans text-sm font-medium text-ink mb-2">
+                        Email
                       </label>
                       <input
                         type="email"
@@ -127,30 +124,15 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 focus:border-charcoal focus:outline-none font-sans text-sm transition-colors duration-200"
-                        placeholder="your.email@example.com"
+                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        placeholder="you@example.com"
                       />
                     </div>
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block font-sans text-sm font-medium text-charcoal mb-2">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-200 focus:border-charcoal focus:outline-none font-sans text-sm transition-colors duration-200"
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="projectType" className="block font-sans text-sm font-medium text-charcoal mb-2">
+                      <label htmlFor="projectType" className="block font-sans text-sm font-medium text-ink mb-2">
                         Project Type
                       </label>
                       <select
@@ -158,24 +140,40 @@ export default function Contact() {
                         name="projectType"
                         value={formData.projectType}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-200 focus:border-charcoal focus:outline-none font-sans text-sm transition-colors duration-200"
+                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
                       >
                         <option value="">Select project type</option>
-                        <option value="full-home">Full Home Design</option>
-                        <option value="living-room">Living Room</option>
-                        <option value="kitchen">Kitchen</option>
-                        <option value="bedroom">Bedroom</option>
-                        <option value="bathroom">Bathroom</option>
-                        <option value="office">Home Office</option>
-                        <option value="consultation">Design Consultation</option>
-                        <option value="other">Other</option>
+                        <option value="single-room">Single Room Consultation</option>
+                        <option value="multi-room">Multiple Rooms</option>
+                        <option value="whole-home">Whole Home Direction</option>
+                        <option value="specific-question">Specific Design Question</option>
+                        <option value="not-sure">Not Sure Yet</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="timeline" className="block font-sans text-sm font-medium text-ink mb-2">
+                        Timeline
+                      </label>
+                      <select
+                        id="timeline"
+                        name="timeline"
+                        value={formData.timeline}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                      >
+                        <option value="">When are you looking to start?</option>
+                        <option value="asap">As soon as possible</option>
+                        <option value="1-3-months">1-3 months</option>
+                        <option value="3-6-months">3-6 months</option>
+                        <option value="exploring">Just exploring options</option>
                       </select>
                     </div>
                   </div>
                   
                   <div>
-                    <label htmlFor="message" className="block font-sans text-sm font-medium text-charcoal mb-2">
-                      Message *
+                    <label htmlFor="message" className="block font-sans text-sm font-medium text-ink mb-2">
+                      About Your Project
                     </label>
                     <textarea
                       id="message"
@@ -184,15 +182,15 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 border border-gray-200 focus:border-charcoal focus:outline-none font-sans text-sm transition-colors duration-200 resize-none"
-                      placeholder="Tell me about your project, timeline, and any specific requirements..."
+                      className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300 resize-none"
+                      placeholder="Tell us about your space, your goals, and what kind of guidance would be most helpful..."
                     />
                   </div>
                   
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full md:w-auto px-8 py-4 bg-charcoal text-white font-sans text-sm font-medium tracking-wide hover:bg-gray-800 disabled:bg-gray-400 transition-colors duration-200"
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
@@ -201,82 +199,74 @@ export default function Contact() {
             </div>
 
             {/* Contact Information */}
-            <div>
-              <h2 className="font-serif text-2xl font-medium text-charcoal mb-8">
-                Let&apos;s Connect
+            <div className="lg:col-span-2">
+              <h2 className="font-serif text-2xl font-light text-ink mb-8">
+                Get in Touch
               </h2>
               
               <div className="space-y-8">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-5 w-5 text-charcoal" />
+                  <div className="w-10 h-10 bg-ivory border border-stone/30 flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-4 w-4 text-clay" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-lg font-medium text-charcoal mb-2">
+                    <h3 className="font-sans text-sm font-medium text-ink mb-1">
                       Email
                     </h3>
-                    <p className="font-sans text-soft-gray font-light">
-                      hello@designsolutions.com
-                    </p>
-                    <p className="font-sans text-sm text-soft-gray mt-1">
-                      I typically respond within 24 hours
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-5 w-5 text-charcoal" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-lg font-medium text-charcoal mb-2">
-                      Phone
-                    </h3>
-                    <p className="font-sans text-soft-gray font-light">
-                      (555) 123-4567
-                    </p>
-                    <p className="font-sans text-sm text-soft-gray mt-1">
-                      Available Mon-Fri, 9AM-6PM
+                    <a 
+                      href="mailto:nicole_harker@yahoo.com"
+                      className="font-sans text-greige hover:text-ink transition-colors duration-300 text-sm"
+                    >
+                      nicole_harker@yahoo.com
+                    </a>
+                    <p className="font-sans text-xs text-greige/70 mt-1">
+                      We respond within 2 business days
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-5 w-5 text-charcoal" />
+                  <div className="w-10 h-10 bg-ivory border border-stone/30 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-4 w-4 text-clay" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-lg font-medium text-charcoal mb-2">
-                      Service Area
+                    <h3 className="font-sans text-sm font-medium text-ink mb-1">
+                      Based In
                     </h3>
-                    <p className="font-sans text-soft-gray font-light">
-                      San Francisco Bay Area
+                    <p className="font-sans text-greige text-sm">
+                      Utah
                     </p>
-                    <p className="font-sans text-sm text-soft-gray mt-1">
-                      In-person consultations available locally
+                    <p className="font-sans text-xs text-greige/70 mt-1">
+                      Virtual consultations available nationwide
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Info */}
-              <div className="mt-12 p-6 bg-white rounded-lg border border-gray-100">
-                <h3 className="font-serif text-lg font-medium text-charcoal mb-4">
-                  What to Expect
+              {/* What to Expect */}
+              <div className="mt-12 p-6 bg-ivory border border-stone/30">
+                <h3 className="font-serif text-lg text-ink mb-4">
+                  What Happens Next
                 </h3>
-                <ul className="space-y-2 font-sans text-soft-gray font-light text-sm">
-                  <li>• Initial consultation to discuss your vision</li>
-                  <li>• Detailed project proposal and timeline</li>
-                  <li>• Regular updates throughout the process</li>
-                  <li>• Final walkthrough and styling</li>
+                <ul className="space-y-3 font-sans text-greige text-sm">
+                  <li className="flex items-start gap-3">
+                    <span className="text-clay">01</span>
+                    <span>We review your project details</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-clay">02</span>
+                    <span>We schedule an introductory call</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-clay">03</span>
+                    <span>We discuss your goals and recommend next steps</span>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
-} 
+}

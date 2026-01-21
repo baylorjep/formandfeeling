@@ -1,32 +1,37 @@
-# DesignSolutions - Interior Design Portfolio
+# Form & Feeling - Interior Design Consulting
 
-A beautiful, modern portfolio website for a freelance interior designer, built with Next.js, TypeScript, and Tailwind CSS. Inspired by the clean, minimal aesthetic of Humphrey Orr and Studio McGee.
+A refined, minimal website for Form & Feeling, an interior design consulting studio by Nicole Harker. Built with Next.js, TypeScript, and Tailwind CSS.
+
+## Brand
+
+- **Name**: FORM & FEELING
+- **Tagline**: Personal spaces, thoughtfully refined
+- **Positioning**: Interior design consulting (guidance, direction, strategy—not full-service execution)
 
 ## Features
 
-- **Clean, Minimal Design**: Elegant typography and generous white space
-- **Large Imagery**: Optimized for showcasing interior design projects
+- **Editorial Design**: Elegant Canela typography with warm, neutral palette
+- **Consulting-Focused Copy**: Clear positioning as design consulting, not execution
 - **Responsive Layout**: Mobile-first design that works on all devices
 - **Performance Optimized**: Fast loading with Next.js and image optimization
 - **SEO Friendly**: Proper metadata and structured content
-- **Contact Form**: Ready for Supabase integration
-- **Modern Stack**: Next.js 14, TypeScript, Tailwind CSS
+- **Contact Form**: Ready for integration
 
 ## Pages
 
-- **Home**: Hero section, introduction, and featured projects
-- **Portfolio**: Grid layout showcasing design projects
-- **About**: Designer bio, philosophy, and experience
-- **Contact**: Contact form and business information
+- **Home**: Brand lockup, intro, services preview, process steps, CTA
+- **Services**: Consulting model, service bullets, three packages (The Consult, The Refine, The Align)
+- **Portfolio**: Design direction examples with consulting context
+- **About**: Form & Feeling philosophy and Nicole's bio
+- **Contact**: "Begin the Conversation" form
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 with App Router
+- **Frontend**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS with custom design system
 - **Icons**: Lucide React
 - **Animations**: Framer Motion
-- **Database**: Supabase (for contact form)
-- **Hosting**: Vercel (recommended)
+- **Typography**: Canela (self-hosted) + Inter (Google Fonts)
 
 ## Getting Started
 
@@ -40,7 +45,7 @@ A beautiful, modern portfolio website for a freelance interior designer, built w
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd designsolutions
+cd formandfeeling
 ```
 
 2. Install dependencies:
@@ -48,58 +53,42 @@ cd designsolutions
 npm install
 ```
 
-3. Run the development server:
+3. Add Canela font files to `/public/fonts/`:
+   - `Canela-Light.woff2`
+   - `Canela-Regular.woff2`
+   - `Canela-Medium.woff2`
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Customization
+## Design System
 
-### Replacing Placeholder Content
+### Colors
+- **Ivory**: `#FDFBF7` - Primary background
+- **Linen**: `#F5F1EB` - Secondary background
+- **Stone**: `#D4CFC7` - Borders and dividers
+- **Greige**: `#8A857D` - Secondary text
+- **Ink**: `#2C2825` - Primary text
+- **Clay**: `#A69080` - Accent color
+- **Taupe**: `#C4B5A6` - Hover states
 
-1. **Images**: Replace placeholder divs with actual images
-   - Hero image on homepage
-   - Project images in portfolio
-   - Designer portrait on about page
+### Typography
+- **Serif**: Canela - Headlines and brand name
+- **Sans**: Inter - Body text and navigation
 
-2. **Content**: Update text content in each page component
-   - Designer bio and experience
-   - Project descriptions
-   - Contact information
+## Brand Assets
 
-3. **Branding**: Update colors and fonts in `tailwind.config.ts`
-
-### Adding Real Images
-
-1. Place images in the `public/` directory
-2. Replace placeholder divs with Next.js Image components
-3. Optimize images for web (recommended: WebP format)
-
-### Supabase Integration
-
-1. Create a Supabase project
-2. Set up environment variables:
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-3. Create a contacts table in Supabase:
-```sql
-CREATE TABLE contacts (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  phone TEXT,
-  project_type TEXT,
-  message TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-```
-
-4. Update the contact form submission in `src/app/contact/page.tsx`
+All brand copy is centralized in `src/data/brand.ts`:
+- Brand statements
+- Keywords
+- CTA labels
+- Service packages
+- Process steps
+- SEO metadata
 
 ## Deployment
 
@@ -109,58 +98,7 @@ CREATE TABLE contacts (
 2. Connect your repository to Vercel
 3. Deploy automatically
 
-### Other Platforms
-
-The site can be deployed to any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-
-## Design System
-
-### Colors
-- **Charcoal**: `#374151` - Primary text and buttons
-- **Soft Gray**: `#6b7280` - Secondary text
-- **Warm White**: `#fafafa` - Background
-- **Cream**: `#fefefe` - Card backgrounds
-
-### Typography
-- **Serif**: Playfair Display - Headings
-- **Sans**: Inter - Body text and navigation
-
-### Spacing
-- Consistent spacing scale using Tailwind's spacing utilities
-- Generous white space for premium feel
-
-## Performance
-
-- Image optimization with Next.js Image component
-- Font optimization with Google Fonts
-- CSS purging with Tailwind
-- Lazy loading for better performance
-
-## SEO
-
-- Proper meta tags and Open Graph data
-- Semantic HTML structure
-- Optimized page titles and descriptions
-- Sitemap generation (can be added)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For questions or support, please contact [your-email@example.com]
-
 ---
 
-Built with ❤️ for beautiful interior design
+Form & Feeling by Nicole Harker
+*Personal spaces, thoughtfully refined*

@@ -9,15 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        serif: ['Canela', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
-        'warm-white': '#fafafa',
-        'soft-gray': '#6b7280',
-        'charcoal': '#374151',
-        'cream': '#f5f5dc',
-        'sage': '#9ca3af',
+        // Form & Feeling Brand Palette
+        ivory: '#FDFBF7',
+        linen: '#F5F1EB',
+        stone: '#D4CFC7',
+        greige: '#8A857D',
+        ink: '#2C2825',
+        clay: '#A69080',
+        taupe: '#C4B5A6',
+        // Utility aliases
+        muted: '#8A857D', // alias for greige - form labels, captions
+        subtle: '#D4CFC7', // alias for stone - borders, dividers
       },
       spacing: {
         '18': '4.5rem',
@@ -25,8 +31,9 @@ const config: Config = {
         '128': '32rem',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'slide-up-delayed': 'slideUp 0.6s ease-out 0.15s both',
       },
       keyframes: {
         fadeIn: {
@@ -34,13 +41,16 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(24px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+      },
+      letterSpacing: {
+        'brand': '0.2em',
       },
     },
   },
   plugins: [],
 }
 
-export default config 
+export default config

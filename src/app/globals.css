@@ -1,71 +1,167 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+/* 
+ * Form & Feeling by Nicole Harker
+ * Global Styles
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* Canela Font - Self-hosted */
+@font-face {
+  font-family: 'Canela';
+  src: url('/fonts/Canela-Light.woff2') format('woff2'),
+       url('/fonts/Canela-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/fonts/Canela-Regular.woff2') format('woff2'),
+       url('/fonts/Canela-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/fonts/Canela-Medium.woff2') format('woff2'),
+       url('/fonts/Canela-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Custom Properties */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* Brand Colors */
+  --color-ivory: #FDFBF7;
+  --color-linen: #F5F1EB;
+  --color-stone: #D4CFC7;
+  --color-greige: #8A857D;
+  --color-ink: #2C2825;
+  --color-clay: #A69080;
+  --color-taupe: #C4B5A6;
+  
+  /* Semantic Tokens */
+  --color-background: var(--color-ivory);
+  --color-background-alt: var(--color-linen);
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-greige);
+  --color-border: var(--color-stone);
+  --color-accent: var(--color-clay);
 }
 
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    min-height: 100vh;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Canela', Georgia, serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Ensure high contrast for body text - ink on ivory */
+  p, li, span, label {
+    color: var(--color-text-primary);
+  }
+  
+  /* Secondary text uses greige only at appropriate sizes */
+  .text-secondary {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem; /* 14px minimum for greige */
   }
 }
 
-/* Custom scrollbar */
+@layer components {
+  /* Brand lockup styling */
+  .brand-name {
+    font-family: 'Canela', Georgia, serif;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  
+  /* Editorial paragraph styling */
+  .prose-editorial {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Subtle divider */
+  .divider-subtle {
+    height: 1px;
+    background-color: var(--color-stone);
+    opacity: 0.6;
+  }
+  
+  /* Button base styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-ink text-ivory font-sans text-sm font-medium tracking-wide transition-all duration-300;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-clay;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 border border-ink text-ink font-sans text-sm font-medium tracking-wide transition-all duration-300;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-ink text-ivory;
+  }
+}
+
+/* Custom scrollbar - subtle and refined */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-linen);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: var(--color-stone);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: var(--color-greige);
 }
 
-/* Smooth transitions */
-* {
-  transition: all 0.2s ease-in-out;
+/* Selection styling */
+::selection {
+  background-color: var(--color-taupe);
+  color: var(--color-ink);
 }
 
-/* Image hover effects */
-.image-hover {
-  transition: transform 0.3s ease-in-out;
+/* Focus states for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 2px;
 }
 
-.image-hover:hover {
-  transform: scale(1.02);
+/* Smooth page transitions */
+.page-transition {
+  animation: fadeIn 0.4s ease-out;
 }
