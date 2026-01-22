@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { BRAND } from '@/data/brand';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -30,9 +30,16 @@ export default function Navigation() {
           {/* Logo */}
           <Link 
             href="/" 
-            className="brand-name text-lg tracking-brand text-ink hover:text-clay transition-colors duration-300"
+            className="hover:opacity-80 transition-opacity duration-300"
           >
-            {BRAND.name}
+            <Image
+              src="/images/logo-transparent.png"
+              alt="Form & Feeling"
+              width={240}
+              height={60}
+              className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
