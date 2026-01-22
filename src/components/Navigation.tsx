@@ -37,7 +37,7 @@ export default function Navigation() {
               alt="Form & Feeling"
               width={240}
               height={60}
-              className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto"
+              className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto"
               priority
             />
           </Link>
