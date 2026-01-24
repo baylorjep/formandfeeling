@@ -2,7 +2,9 @@ import HomeHero from '@/components/HomeHero';
 import ServicesPreview from '@/components/ServicesPreview';
 import ProcessSteps from '@/components/ProcessSteps';
 import WhoThisIsFor from '@/components/WhoThisIsFor';
+import Testimonials from '@/components/Testimonials';
 import CTASection from '@/components/CTASection';
+import ScrollReveal from '@/components/ScrollReveal';
 import { HOMEPAGE_INTRO } from '@/data/brand';
 
 export default function Home() {
@@ -12,13 +14,15 @@ export default function Home() {
       <HomeHero />
 
       {/* Introduction Section */}
-      <section className="py-24 px-4 bg-ivory">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="prose-editorial text-lg md:text-xl text-ink/90 leading-relaxed">
-            {HOMEPAGE_INTRO}
-          </p>
-        </div>
-      </section>
+      <ScrollReveal>
+        <section className="py-24 px-4 bg-ivory">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="prose-editorial text-lg md:text-xl text-ink/90 leading-relaxed">
+              {HOMEPAGE_INTRO}
+            </p>
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* Subtle Divider */}
       <div className="max-w-4xl mx-auto px-4">
@@ -26,13 +30,24 @@ export default function Home() {
       </div>
 
       {/* Services Preview */}
-      <ServicesPreview />
+      <ScrollReveal>
+        <ServicesPreview />
+      </ScrollReveal>
 
       {/* Process Steps */}
-      <ProcessSteps />
+      <ScrollReveal>
+        <ProcessSteps />
+      </ScrollReveal>
 
       {/* Who This Is For - Compact version for homepage */}
-      <WhoThisIsFor variant="compact" />
+      <ScrollReveal>
+        <WhoThisIsFor variant="compact" />
+      </ScrollReveal>
+
+      {/* Testimonials */}
+      <ScrollReveal>
+        <Testimonials />
+      </ScrollReveal>
 
       {/* CTA Section */}
       <CTASection 

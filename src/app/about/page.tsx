@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import CTASection from '@/components/CTASection';
 import { ABOUT_FORM_FEELING, ABOUT_NICOLE, SEO, BRAND } from '@/data/brand';
@@ -57,12 +58,15 @@ export default function About() {
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
             {/* Portrait Section */}
             <div className="flex-shrink-0">
-              <div 
-                className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden bg-cover bg-center bg-no-repeat border-4 border-stone/20"
-                style={{
-                  backgroundImage: "url('/images/nicole.jpeg')"
-                }}
-              />
+              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-stone/20 relative">
+                <Image
+                  src="/images/nicole.jpeg"
+                  alt="Nicole Harker, founder of Form & Feeling"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 192px, 224px"
+                />
+              </div>
             </div>
 
             {/* Bio Section */}

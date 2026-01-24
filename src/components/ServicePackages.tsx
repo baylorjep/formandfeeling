@@ -53,7 +53,7 @@ export default function ServicePackages({ showCTA = true }: ServicePackagesProps
                   href="/contact"
                   className="group inline-flex items-center gap-2 text-ink font-sans text-sm font-medium hover:text-clay transition-colors duration-300"
                 >
-                  Learn more
+                  {pkg.cta || 'Get a Quote'}
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               )}

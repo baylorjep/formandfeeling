@@ -83,6 +83,21 @@ export default function Footer() {
           <p className="text-center font-serif text-base sm:text-lg text-taupe/80 mb-4 sm:mb-6 italic px-4">
             {BRAND_STATEMENT.philosophy}
           </p>
+          <div className="flex justify-center gap-4 mb-4">
+            <Link
+              href="/privacy"
+              className="text-xs text-taupe/60 hover:text-ivory transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-taupe/40">|</span>
+            <Link
+              href="/terms"
+              className="text-xs text-taupe/60 hover:text-ivory transition-colors duration-300"
+            >
+              Terms of Service
+            </Link>
+          </div>
           <p className="text-center text-xs text-taupe/60">
             © {currentYear} {BRAND.name}. All rights reserved.
           </p>

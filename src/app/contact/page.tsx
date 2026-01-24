@@ -1,9 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Mail, MapPin } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { BRAND } from '@/data/brand';
+
+type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,18 +21,60 @@ export default function Contact() {
     timeline: '',
     message: '',
   });
+  const [status, setStatus] = useState<FormStatus>('idle');
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Please tell us about your project';
+    } else if (formData.message.trim().length < 20) {
+      newErrors.message = 'Please provide a bit more detail (at least 20 characters)';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors({
+        ...errors,
+        [name]: undefined,
+      });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Build email body from form data
+    if (!validateForm()) {
+      return;
+    }
+
+    setStatus('submitting');
+
+    // Simulate API call delay (replace with actual API call when Resend is set up)
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // For now, use mailto as fallback
     const subject = `Form & Feeling Inquiry from ${formData.name}`;
     const body = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -53,6 +103,20 @@ ${formData.message}
     // Open default email client with pre-filled content
     const mailtoLink = `mailto:nicole@formandfeeling.design?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
+    
+    setStatus('success');
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      projectType: '',
+      timeline: '',
+      message: '',
+    });
+    setStatus('idle');
+    setErrors({});
   };
 
   return (
@@ -91,11 +155,27 @@ ${formData.message}
                 Tell Us About Your Project
               </h2>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {status === 'success' ? (
+                <div className="p-8 bg-ivory border border-stone/30 text-center">
+                  <CheckCircle className="w-12 h-12 text-clay mx-auto mb-4" />
+                  <h3 className="font-serif text-2xl text-ink mb-3">Message Sent</h3>
+                  <p className="font-sans text-greige text-sm mb-6">
+                    Thank you for reaching out! Your email client should have opened with your message. 
+                    We&apos;ll be in touch within 2 business days.
+                  </p>
+                  <button
+                    onClick={resetForm}
+                    className="font-sans text-sm text-clay hover:text-ink transition-colors"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block font-sans text-sm font-medium text-ink mb-2">
-                        Name
+                        Name <span className="text-clay">*</span>
                       </label>
                       <input
                         type="text"
@@ -103,15 +183,26 @@ ${formData.message}
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        aria-required="true"
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? 'name-error' : undefined}
+                        className={`w-full px-4 py-3 bg-ivory border ${
+                          errors.name ? 'border-red-400' : 'border-stone/50'
+                        } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="Your name"
+                        disabled={status === 'submitting'}
                       />
+                      {errors.name && (
+                        <p id="name-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
                     
                     <div>
                       <label htmlFor="email" className="block font-sans text-sm font-medium text-ink mb-2">
-                        Email
+                        Email <span className="text-clay">*</span>
                       </label>
                       <input
                         type="email"
@@ -119,10 +210,21 @@ ${formData.message}
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        aria-required="true"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? 'email-error' : undefined}
+                        className={`w-full px-4 py-3 bg-ivory border ${
+                          errors.email ? 'border-red-400' : 'border-stone/50'
+                        } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="you@example.com"
+                        disabled={status === 'submitting'}
                       />
+                      {errors.email && (
+                        <p id="email-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
                   
@@ -136,7 +238,9 @@ ${formData.message}
                         name="projectType"
                         value={formData.projectType}
                         onChange={handleChange}
+                        aria-label="Select your project type"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        disabled={status === 'submitting'}
                       >
                         <option value="">Select project type</option>
                         <option value="single-room">Single Room Consultation</option>
@@ -156,7 +260,9 @@ ${formData.message}
                         name="timeline"
                         value={formData.timeline}
                         onChange={handleChange}
+                        aria-label="Select your timeline"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
+                        disabled={status === 'submitting'}
                       >
                         <option value="">When are you looking to start?</option>
                         <option value="asap">As soon as possible</option>
@@ -169,27 +275,47 @@ ${formData.message}
                   
                   <div>
                     <label htmlFor="message" className="block font-sans text-sm font-medium text-ink mb-2">
-                      About Your Project
+                      About Your Project <span className="text-clay">*</span>
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
                       rows={6}
-                      className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300 resize-none"
+                      aria-required="true"
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? 'message-error' : undefined}
+                      className={`w-full px-4 py-3 bg-ivory border ${
+                        errors.message ? 'border-red-400' : 'border-stone/50'
+                      } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300 resize-none`}
                       placeholder="Tell us about your space, your goals, and what kind of guidance would be most helpful..."
+                      disabled={status === 'submitting'}
                     />
+                    {errors.message && (
+                      <p id="message-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
                   
                   <button
                     type="submit"
-                    className="btn-primary"
+                    disabled={status === 'submitting'}
+                    className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {status === 'submitting' ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </form>
+              )}
             </div>
 
             {/* Contact Information */}

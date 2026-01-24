@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Check } from 'lucide-react';
 import ServicePackages from '@/components/ServicePackages';
 import WhoThisIsFor from '@/components/WhoThisIsFor';
@@ -16,11 +17,13 @@ export default function Services() {
     <main className="min-h-screen pt-20">
       {/* Hero Image */}
       <section className="relative h-64 sm:h-80 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')"
-          }}
+        <Image
+          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+          alt="Beautifully designed interior space"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-ink/20" />
       </section>

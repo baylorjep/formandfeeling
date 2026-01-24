@@ -156,16 +156,19 @@ export const SERVICE_PACKAGES = [
     name: 'The Consult',
     description: 'A focused session to address a specific design challenge, answer questions, and provide actionable direction. Ideal for those who need clarity on a single room or decision.',
     ideal: 'One room or specific challenge',
+    cta: 'Get a Quote',
   },
   {
     name: 'The Refine',
     description: 'A deeper engagement for clients ready to transform a space with intention. Includes comprehensive design direction, curated recommendations, and ongoing guidance.',
     ideal: 'Full room transformation',
+    cta: 'Get a Quote',
   },
   {
     name: 'The Align',
     description: 'Our most comprehensive consulting package, designed for clients working on multiple spaces or a whole-home vision. Strategic direction and cohesive design thinking throughout.',
     ideal: 'Multiple rooms or whole-home',
+    cta: 'Get a Quote',
   },
 ] as const;
 
@@ -222,3 +225,25 @@ export const SEO = {
     description: 'Begin the conversation. Reach out to discuss how Form & Feeling can guide your next design project.',
   },
 } as const;
+
+// ============================================================================
+// TESTIMONIALS (Placeholder - replace with real testimonials)
+// ============================================================================
+
+export const TESTIMONIALS = [
+  {
+    quote: "Working with Nicole completely transformed how I see my space. She helped me understand what I actually wanted and gave me the confidence to make decisions I love.",
+    author: "Sarah M.",
+    project: "Living Room Direction",
+  },
+  {
+    quote: "I was so overwhelmed by choices for our kitchen renovation. Nicole cut through the noise and gave us a clear framework that made everything click into place.",
+    author: "David & Emily R.",
+    project: "Kitchen Consultation",
+  },
+  {
+    quote: "The best part was feeling empowered, not dependent. Nicole taught me to trust my instincts while providing expert guidance when I needed it.",
+    author: "Jennifer L.",
+    project: "Whole Home Direction",
+  },
+] as const;

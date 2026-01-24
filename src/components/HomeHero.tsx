@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { BRAND } from '@/data/brand';
 
@@ -7,11 +8,13 @@ export default function HomeHero() {
     <section className="relative min-h-[70vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')"
-          }}
+        <Image
+          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+          alt="Elegant interior living space"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         {/* Warm overlay for brand cohesion */}
         <div className="absolute inset-0 bg-ivory/85" />
