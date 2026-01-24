@@ -90,7 +90,7 @@ export const EMAIL_SIGNATURE = `Nicole Harker
 Founder, Form & Feeling
 Interior Design Consulting
 
-nicole_harker@yahoo.com`;
+nicole@formandfeeling.design`;
 
 // ============================================================================
 // CONTENT BLOCKS

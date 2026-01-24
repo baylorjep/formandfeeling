@@ -26,16 +26,32 @@ export default function Contact() {
     
     // Build email body from form data
     const subject = `Form & Feeling Inquiry from ${formData.name}`;
-    const body = `Name: ${formData.name}
-Email: ${formData.email}
-Project Type: ${formData.projectType || 'Not specified'}
-Timeline: ${formData.timeline || 'Not specified'}
+    const body = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTACT DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Message:
-${formData.message}`;
+Name:         ${formData.name}
+Email:        ${formData.email}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project Type: ${formData.projectType || 'Not specified'}
+Timeline:     ${formData.timeline || 'Not specified'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MESSAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+${formData.message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`;
     
     // Open default email client with pre-filled content
-    const mailtoLink = `mailto:nicole_harker@yahoo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:nicole@formandfeeling.design?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
   };
 
@@ -192,10 +208,10 @@ ${formData.message}`;
                       Email
                     </h3>
                     <a 
-                      href="mailto:nicole_harker@yahoo.com"
+                      href="mailto:nicole@formandfeeling.design"
                       className="font-sans text-greige hover:text-ink transition-colors duration-300 text-sm"
                     >
-                      nicole_harker@yahoo.com
+                      nicole@formandfeeling.design
                     </a>
                     <p className="font-sans text-xs text-greige/70 mt-1">
                       We respond within 2 business days

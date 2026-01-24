@@ -68,11 +68,11 @@ export default function Footer() {
                 <span className="text-sm">Instagram</span>
               </Link>
               <Link
-                href="mailto:nicole_harker@yahoo.com"
+                href="mailto:nicole@formandfeeling.design"
                 className="flex items-center gap-3 text-taupe hover:text-ivory transition-colors duration-300"
               >
                 <Mail className="w-4 h-4" />
-                <span className="text-sm">nicole_harker@yahoo.com</span>
+                <span className="text-sm">nicole@formandfeeling.design</span>
               </Link>
             </div>
           </div>
