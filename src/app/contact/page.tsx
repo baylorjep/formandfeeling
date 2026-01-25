@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Mail, MapPin, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { BRAND } from '@/data/brand';
 
-type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
+type FormStatus = 'idle' | 'success';
 
 interface FormErrors {
   name?: string;
@@ -62,48 +62,31 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
       return;
     }
-
-    setStatus('submitting');
-
-    // Simulate API call delay (replace with actual API call when Resend is set up)
-    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // For now, use mailto as fallback
+    // Build email content
     const subject = `Form & Feeling Inquiry from ${formData.name}`;
-    const body = `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CONTACT DETAILS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const body = `CONTACT DETAILS
+Name: ${formData.name}
+Email: ${formData.email}
 
-Name:         ${formData.name}
-Email:        ${formData.email}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PROJECT INFORMATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 Project Type: ${formData.projectType || 'Not specified'}
-Timeline:     ${formData.timeline || 'Not specified'}
+Timeline: ${formData.timeline || 'Not specified'}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 MESSAGE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${formData.message}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`;
+${formData.message}`;
     
     // Open default email client with pre-filled content
     const mailtoLink = `mailto:nicole@formandfeeling.design?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+    window.open(mailtoLink, '_blank');
     
+    // Show success message - user still needs to send from their email client
     setStatus('success');
   };
 
@@ -157,18 +140,31 @@ ${formData.message}
               
               {status === 'success' ? (
                 <div className="p-8 bg-ivory border border-stone/30 text-center">
-                  <CheckCircle className="w-12 h-12 text-clay mx-auto mb-4" />
-                  <h3 className="font-serif text-2xl text-ink mb-3">Message Sent</h3>
-                  <p className="font-sans text-greige text-sm mb-6">
-                    Thank you for reaching out! Your email client should have opened with your message. 
-                    We&apos;ll be in touch within 2 business days.
+                  <Mail className="w-12 h-12 text-clay mx-auto mb-4" />
+                  <h3 className="font-serif text-2xl text-ink mb-3">One More Step</h3>
+                  <p className="font-sans text-greige text-sm mb-4">
+                    Your email client should have opened with your message pre-filled.
                   </p>
-                  <button
-                    onClick={resetForm}
-                    className="font-sans text-sm text-clay hover:text-ink transition-colors"
-                  >
-                    Send another message
-                  </button>
+                  <p className="font-sans text-ink text-sm font-medium mb-6">
+                    Please click &ldquo;Send&rdquo; in your email app to complete your inquiry.
+                  </p>
+                  <div className="space-y-3">
+                    <p className="font-sans text-xs text-greige">
+                      Didn&apos;t see your email client open? Email us directly at{' '}
+                      <a 
+                        href="mailto:nicole@formandfeeling.design" 
+                        className="text-clay hover:text-ink transition-colors"
+                      >
+                        nicole@formandfeeling.design
+                      </a>
+                    </p>
+                    <button
+                      onClick={resetForm}
+                      className="font-sans text-sm text-clay hover:text-ink transition-colors"
+                    >
+                      Start over
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6" noValidate>
@@ -190,7 +186,7 @@ ${formData.message}
                           errors.name ? 'border-red-400' : 'border-stone/50'
                         } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="Your name"
-                        disabled={status === 'submitting'}
+                        disabled={false}
                       />
                       {errors.name && (
                         <p id="name-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -217,7 +213,7 @@ ${formData.message}
                           errors.email ? 'border-red-400' : 'border-stone/50'
                         } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="you@example.com"
-                        disabled={status === 'submitting'}
+                        disabled={false}
                       />
                       {errors.email && (
                         <p id="email-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -240,7 +236,7 @@ ${formData.message}
                         onChange={handleChange}
                         aria-label="Select your project type"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
-                        disabled={status === 'submitting'}
+                        disabled={false}
                       >
                         <option value="">Select project type</option>
                         <option value="single-room">Single Room Consultation</option>
@@ -262,7 +258,7 @@ ${formData.message}
                         onChange={handleChange}
                         aria-label="Select your timeline"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
-                        disabled={status === 'submitting'}
+                        disabled={false}
                       >
                         <option value="">When are you looking to start?</option>
                         <option value="asap">As soon as possible</option>
@@ -302,17 +298,9 @@ ${formData.message}
                   
                   <button
                     type="submit"
-                    disabled={status === 'submitting'}
-                    className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="btn-primary"
                   >
-                    {status === 'submitting' ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-                    )}
+                    Open Email Client
                   </button>
                 </form>
               )}
