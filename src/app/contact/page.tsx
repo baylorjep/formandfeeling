@@ -69,24 +69,43 @@ export default function Contact() {
       return;
     }
     
-    // Build email content
+    // Build nicely formatted email content
     const subject = `Form & Feeling Inquiry from ${formData.name}`;
-    const body = `CONTACT DETAILS
+    const body = `Hi Nicole,
+
+I'm reaching out about a design consulting project.
+
+─────────────────────────────
+ABOUT ME
+─────────────────────────────
 Name: ${formData.name}
 Email: ${formData.email}
 
-PROJECT INFORMATION
-Project Type: ${formData.projectType || 'Not specified'}
-Timeline: ${formData.timeline || 'Not specified'}
+─────────────────────────────
+PROJECT DETAILS
+─────────────────────────────
+Type: ${formData.projectType ? formData.projectType.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Not specified'}
+Timeline: ${formData.timeline ? formData.timeline.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Not specified'}
 
-MESSAGE
-${formData.message}`;
+─────────────────────────────
+MY MESSAGE
+─────────────────────────────
+${formData.message}
+
+─────────────────────────────
+
+Looking forward to hearing from you!
+
+${formData.name}`;
     
-    // Open default email client with pre-filled content
+    // Create a temporary anchor element to trigger mailto
+    // This works more reliably across browsers than window.open
     const mailtoLink = `mailto:nicole@formandfeeling.design?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoLink, '_blank');
+    const link = document.createElement('a');
+    link.href = mailtoLink;
+    link.click();
     
-    // Show success message - user still needs to send from their email client
+    // Show next steps message
     setStatus('success');
   };
 
@@ -300,7 +319,7 @@ ${formData.message}`;
                     type="submit"
                     className="btn-primary"
                   >
-                    Open Email Client
+                    Send Message
                   </button>
                 </form>
               )}
