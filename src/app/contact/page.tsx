@@ -286,7 +286,7 @@ ${formData.message}`;
                         errors.message ? 'border-red-400' : 'border-stone/50'
                       } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300 resize-none`}
                       placeholder="Tell us about your space, your goals, and what kind of guidance would be most helpful..."
-                      disabled={status === 'submitting'}
+                      disabled={false}
                     />
                     {errors.message && (
                       <p id="message-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
