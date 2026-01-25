@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Mail, MapPin, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin, AlertCircle, Loader2, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { BRAND } from '@/data/brand';
 
-type FormStatus = 'idle' | 'success';
+type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 interface FormErrors {
   name?: string;
@@ -62,51 +62,33 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
       return;
     }
-    
-    // Build nicely formatted email content
-    const subject = `Form & Feeling Inquiry from ${formData.name}`;
-    const body = `Hi Nicole,
 
-I'm reaching out about a design consulting project.
+    setStatus('submitting');
 
-─────────────────────────────
-ABOUT ME
-─────────────────────────────
-Name: ${formData.name}
-Email: ${formData.email}
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-─────────────────────────────
-PROJECT DETAILS
-─────────────────────────────
-Type: ${formData.projectType ? formData.projectType.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Not specified'}
-Timeline: ${formData.timeline ? formData.timeline.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Not specified'}
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
-─────────────────────────────
-MY MESSAGE
-─────────────────────────────
-${formData.message}
-
-─────────────────────────────
-
-Looking forward to hearing from you!
-
-${formData.name}`;
-    
-    // Create a temporary anchor element to trigger mailto
-    // This works more reliably across browsers than window.open
-    const mailtoLink = `mailto:nicole@formandfeeling.design?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    const link = document.createElement('a');
-    link.href = mailtoLink;
-    link.click();
-    
-    // Show next steps message
-    setStatus('success');
+      setStatus('success');
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setStatus('error');
+    }
   };
 
   const resetForm = () => {
@@ -159,17 +141,35 @@ ${formData.name}`;
               
               {status === 'success' ? (
                 <div className="p-8 bg-ivory border border-stone/30 text-center">
-                  <Mail className="w-12 h-12 text-clay mx-auto mb-4" />
-                  <h3 className="font-serif text-2xl text-ink mb-3">One More Step</h3>
-                  <p className="font-sans text-greige text-sm mb-4">
-                    Your email client should have opened with your message pre-filled.
+                  <CheckCircle className="w-12 h-12 text-clay mx-auto mb-4" />
+                  <h3 className="font-serif text-2xl text-ink mb-3">Message Sent</h3>
+                  <p className="font-sans text-greige text-sm mb-6">
+                    Thank you for reaching out! We&apos;ve received your inquiry and will 
+                    be in touch within 2 business days.
                   </p>
-                  <p className="font-sans text-ink text-sm font-medium mb-6">
-                    Please click &ldquo;Send&rdquo; in your email app to complete your inquiry.
+                  <button
+                    onClick={resetForm}
+                    className="font-sans text-sm text-clay hover:text-ink transition-colors"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : status === 'error' ? (
+                <div className="p-8 bg-ivory border border-red-200 text-center">
+                  <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+                  <h3 className="font-serif text-2xl text-ink mb-3">Something went wrong</h3>
+                  <p className="font-sans text-greige text-sm mb-4">
+                    We couldn&apos;t send your message. Please try again or email us directly.
                   </p>
                   <div className="space-y-3">
+                    <button
+                      onClick={() => setStatus('idle')}
+                      className="btn-primary"
+                    >
+                      Try Again
+                    </button>
                     <p className="font-sans text-xs text-greige">
-                      Didn&apos;t see your email client open? Email us directly at{' '}
+                      Or email us at{' '}
                       <a 
                         href="mailto:nicole@formandfeeling.design" 
                         className="text-clay hover:text-ink transition-colors"
@@ -177,12 +177,6 @@ ${formData.name}`;
                         nicole@formandfeeling.design
                       </a>
                     </p>
-                    <button
-                      onClick={resetForm}
-                      className="font-sans text-sm text-clay hover:text-ink transition-colors"
-                    >
-                      Start over
-                    </button>
                   </div>
                 </div>
               ) : (
@@ -205,7 +199,7 @@ ${formData.name}`;
                           errors.name ? 'border-red-400' : 'border-stone/50'
                         } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="Your name"
-                        disabled={false}
+                        disabled={status === 'submitting'}
                       />
                       {errors.name && (
                         <p id="name-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -232,7 +226,7 @@ ${formData.name}`;
                           errors.email ? 'border-red-400' : 'border-stone/50'
                         } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300`}
                         placeholder="you@example.com"
-                        disabled={false}
+                        disabled={status === 'submitting'}
                       />
                       {errors.email && (
                         <p id="email-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -255,7 +249,7 @@ ${formData.name}`;
                         onChange={handleChange}
                         aria-label="Select your project type"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
-                        disabled={false}
+                        disabled={status === 'submitting'}
                       >
                         <option value="">Select project type</option>
                         <option value="single-room">Single Room Consultation</option>
@@ -277,7 +271,7 @@ ${formData.name}`;
                         onChange={handleChange}
                         aria-label="Select your timeline"
                         className="w-full px-4 py-3 bg-ivory border border-stone/50 focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300"
-                        disabled={false}
+                        disabled={status === 'submitting'}
                       >
                         <option value="">When are you looking to start?</option>
                         <option value="asap">As soon as possible</option>
@@ -305,7 +299,7 @@ ${formData.name}`;
                         errors.message ? 'border-red-400' : 'border-stone/50'
                       } focus:border-clay focus:outline-none font-sans text-sm text-ink transition-colors duration-300 resize-none`}
                       placeholder="Tell us about your space, your goals, and what kind of guidance would be most helpful..."
-                      disabled={false}
+                      disabled={status === 'submitting'}
                     />
                     {errors.message && (
                       <p id="message-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -317,9 +311,17 @@ ${formData.name}`;
                   
                   <button
                     type="submit"
-                    className="btn-primary"
+                    disabled={status === 'submitting'}
+                    className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {status === 'submitting' ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </form>
               )}
