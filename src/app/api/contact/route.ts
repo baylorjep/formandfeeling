@@ -18,7 +18,21 @@ export async function POST(request: Request) {
     // Format project type and timeline for display
     const formatValue = (value: string) => {
       if (!value) return 'Not specified';
-      return value.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      
+      // Map specific values to readable formats
+      const valueMap: Record<string, string> = {
+        'single-room': 'Single Room Consultation',
+        'multi-room': 'Multiple Rooms',
+        'whole-home': 'Whole Home Direction',
+        'specific-question': 'Specific Design Question',
+        'not-sure': 'Not Sure Yet',
+        'asap': 'As Soon As Possible',
+        '1-3-months': '1-3 Months',
+        '3-6-months': '3-6 Months',
+        'exploring': 'Just Exploring Options',
+      };
+      
+      return valueMap[value] || value;
     };
 
     // Send email to Nicole
